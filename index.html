@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>14 اگست مبارک | جشنِ آزادی</title>
+  <meta name="description" content="14 اگست کی شاندار مبارکباد — اپنا نام لکھیں اور دوستوں کے ساتھ شیئر کریں!">
+  <meta property="og:title" content="14 اگست مبارک | جشنِ آزادی">
+  <meta property="og:description" content="اپنا نام لکھیں اور دوستوں کے ساتھ شیئر کریں!">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0b7d3e">
+
+  <!-- Google Fonts: Urdu + Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Flag Icons (Pakistan) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/css/flag-icons.min.css">
+
+  <style>
+    :root{
+      --green:#0b7d3e; /* Pakistan green */
+      --green-dark:#066030;
+      --white:#ffffff;
+      --gold:#f1c40f;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(255,255,255,.35), rgba(255,255,255,0)),
+                  linear-gradient(135deg, #0e8744, #064e27 60%);
+      color:var(--white);
+      overflow-x:hidden;
+    }
+
+    /* Fireworks canvas and sparkle layer */
+    #fireworks, #sparkles { position:fixed; inset:0; pointer-events:none; z-index:1; }
+
+    /* Content container */
+    .wrap{
+      position:relative; z-index:2;
+      min-height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:24px;
+      padding:24px; text-align:center;
+    }
+
+    .flag-badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 16px; border-radius:999px; background:rgba(255,255,255,.1); backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,.25); box-shadow:0 10px 30px rgba(0,0,0,.25);
+      font-weight:700; letter-spacing:.5px;
+    }
+    .flag-badge .fi{ font-size:22px; border-radius:4px; box-shadow:0 0 0 2px rgba(255,255,255,.35) inset; }
+
+    .heading-urdu{
+      font-family:'Noto Nastaliq Urdu', serif; font-size:48px; line-height:1.3; margin:0; text-shadow:0 4px 30px rgba(0,0,0,.35);
+    }
+
+    .heading-en{
+      font-size:18px; text-transform:uppercase; letter-spacing:1.5px; opacity:.95; margin:0 0 6px;
+    }
+
+    .name-chip{
+      display:inline-block; padding:8px 14px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.28);
+      border-radius:999px; font-weight:700; box-shadow:0 8px 24px rgba(0,0,0,.25);
+    }
+
+    .card{
+      width:min(900px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.25); border-radius:24px; padding:22px; box-shadow:0 30px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .controls{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:10px }
+    .input{
+      display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.35);
+      border-radius:14px; padding:10px 14px; color:#083b1e;
+      backdrop-filter: blur(6px);
+    }
+    input::placeholder  {
+      color: #e3e3e3;
+    }
+    .input input{
+      border:none; outline:none; background:transparent; color:#fff; min-width:240px; font-weight:600;
+    }
+    .btn{
+      border:none; cursor:pointer; font-weight:800; padding:12px 16px; border-radius:14px; transition:transform .08s ease, box-shadow .2s ease, background .2s;
+    }
+    .btn-primary{ background:var(--white); color:#0e6b37; box-shadow:0 10px 30px rgba(0,0,0,.25); }
+    .btn-primary:hover{ transform:translateY(-1px) }
+    .btn-ghost{ background:rgba(255,255,255,.15); color:#fff; border:1px solid rgba(255,255,255,.35) }
+    .btn-ghost:hover{ background:rgba(255,255,255,.22) }
+
+    .chips{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:14px }
+    .chip{ padding:6px 10px; font-size:12px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.1) }
+
+    .footer{ margin-top:24px; opacity:.9; font-size:12px }
+
+    /* Crescent + star ornament */
+    .ornament{ position:absolute; top:20px; left:20px; width:80px; height:80px; opacity:.9; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)) }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .heading-urdu{ font-size:38px }
+      .heading-en{ font-size:14px }
+      .ornament{ width:64px; height:64px }
+    }
+     .footer-credit {
+      font-size: 12px;
+      opacity: 0.7;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .footer-credit a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .footer-credit a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 520px) {
+    .footer-credit {
+      /* bottom: 80px; /* Lift footer higher for mobile */
+      /* position: fixed;
+      width: 100%;
+      text-align: center;  */
+      margin-top: -16px;
+    }
+  }
+    #soundToggle { position: fixed; top: 10px; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; z-index: 1000; }
+    #visualizer { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; background: rgba(0,0,0,0.2); display: block; z-index: 500; }
+
+  </style>
+</head>
+<body>
+  <!-- Fireworks & Sparkles Layers -->
+  <canvas id="fireworks"></canvas>
+  <canvas id="sparkles"></canvas>
+  <audio id="anthem" loop></audio>
+    <button id="soundToggle">🔊 Sound On</button>
+      <canvas id="visualizer"></canvas>
+
+
+
+  <!-- Decorative Crescent and Star (SVG) -->
+  <svg class="ornament" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <radialGradient id="g" cx="50%" cy="50%" r="60%">
+        <stop offset="0%" stop-color="#fff" stop-opacity="1"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity=".15"/>
+      </radialGradient>
+    </defs>
+    <path d="M65 15a35 35 0 1 0 0 70 40 40 0 1 1 0-70z" fill="url(#g)"/>
+    <polygon points="70,35 75,50 90,50 78,58 82,72 70,63 58,72 62,58 50,50 65,50" fill="#fff"/>
+  </svg>
+
+  <div class="wrap">
+    <div class="flag-badge" dir="ltr">
+      <span class="fi fi-pk" aria-label="Pakistan flag"></span>
+      <span>Happy Independence Day • 14 August</span>
+    </div>
+
+    <div class="card">
+      <p class="heading-en" dir="ltr">Jashn-e-Azadi Mubarak</p>
+      <h1 class="heading-urdu">جشنِ آزادی مبارک</h1>
+      <div style="margin:18px 0 4px">
+        <span class="name-chip" id="nameChip">دوست</span>
+      </div>
+      <div class="chips" dir="ltr">
+        <span class="chip">#PakistanZindabad</span>
+        <span class="chip">#14August</span>
+        <span class="chip">#Freedom</span>
+      </div>
+
+      <div class="controls" dir="ltr">
+        <div class="input" role="group" aria-label="Enter name to personalize">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-3.33 0-6 2.24-6 5v1h12v-1c0-2.76-2.67-5-6-5Z" stroke="white" stroke-width="1.5"/></svg>
+          <input id="nameInput" type="text" placeholder="نام لکھیں / Enter a name" maxlength="40" aria-label="Name">
+        </div>
+        <button id="makeLink" class="btn btn-primary">Create & Share Link</button>
+        <button id="shareNow" class="btn btn-ghost">Share This Page</button>
+      </div>
+    </div>
+
+    <div class="footer-credit" dir="ltr">
+      <span>Made with ❤ for Pakistan by <a href="https://humayyonahmed.netlify.app" target="_blank">Humayun</a></span>
+    </div>
+  </div>
+
+<script>
+    const anthemFiles = ['anthem1.mp3', 'anthem2.mp3', 'anthem3.mp3'];
+  const anthemEl = document.getElementById('anthem');
+  anthemEl.src = anthemFiles[Math.floor(Math.random() * anthemFiles.length)];
+
+  let isPlaying = false;
+  const toggleBtn = document.getElementById('soundToggle');
+  toggleBtn.addEventListener('click', () => {
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    if(isPlaying){ anthemEl.pause(); toggleBtn.textContent = '🔇 Sound Off'; }
+    else { anthemEl.play(); toggleBtn.textContent = '🔊 Sound On'; }
+    isPlaying = !isPlaying;
+  });
+
+  function tryPlay(){
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    anthemEl.play().then(()=>{isPlaying=true; toggleBtn.textContent = '🔊 Sound On';}).catch(()=>{});
+    document.removeEventListener('click', tryPlay);
+    document.removeEventListener('touchstart', tryPlay);
+  }
+  document.addEventListener('click', tryPlay);
+  document.addEventListener('touchstart', tryPlay);
+
+  const canvas = document.getElementById('visualizer');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = 80;
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const analyser = audioCtx.createAnalyser();
+  const source = audioCtx.createMediaElementSource(anthemEl);
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  analyser.fftSize = 128;
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+
+  function draw(){
+    requestAnimationFrame(draw);
+    analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
+    for(let i=0;i<bufferLength;i++){
+      const barHeight = dataArray[i] * 0.6;
+      const hue = (i * 8 + Date.now() / 10) % 360;
+      ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = ctx.fillStyle;
+      ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
+      x += barWidth + 1;
+    }
+  }
+  draw();
+</script>
+<script>
+  // Utilities
+  const $ = (s, p=document)=>p.querySelector(s);
+  const params = new URLSearchParams(location.search);
+  const decodeName = (v)=> decodeURIComponent((v||'').replace(/\+/g,' ')).trim();
+  const safeName = (v)=> v.replace(/[\n\r<>"']/g, '').trim().slice(0, 40);
+
+  // Personalization
+  const defaultName = 'دوست'; // Friend
+  const nameChip = $('#nameChip');
+  const nameInput = $('#nameInput');
+  const rawName = decodeName(params.get('name'));
+  const initialName = rawName || defaultName;
+  nameChip.textContent = initialName;
+  if(rawName) nameInput.value = rawName;
+  document.title = (rawName ? rawName + ' — ' : '') + '14 اگست مبارک | جشنِ آزادی';
+
+  function buildLink(name){
+    const url = new URL(location.href);
+    if(name) url.searchParams.set('name', name);
+    else url.searchParams.delete('name');
+    return url.toString();
+  }
+
+  // Share handlers
+  $('#makeLink').addEventListener('click', async ()=>{
+    const name = safeName(nameInput.value || defaultName);
+    nameChip.textContent = name;
+    const link = buildLink(name);
+    try{
+      if(navigator.share){
+        await navigator.share({
+          title: '14 اگست مبارک',
+          text: `${name} کے نام — جشنِ آزادی مبارک!`,
+          url: link
+        });
+      }else{
+        await navigator.clipboard.writeText(link);
+        alert('Link copied! Share it anywhere.');
+      }
+    }catch(e){ console.warn(e); }
+  });
+
+  $('#shareNow').addEventListener('click', async ()=>{
+    const link = buildLink(safeName(nameChip.textContent));
+    try{
+      if(navigator.share){
+        await navigator.share({ title:'14 August Wishes', text:'Jashn-e-Azadi Mubarak!', url:link });
+      }else{
+        await navigator.clipboard.writeText(link);
+        alert('Link copied!');
+      }
+    }catch(e){ console.warn(e); }
+  });
+
+  // Live preview on input
+  nameInput.addEventListener('input', ()=>{
+    const v = nameInput.value.trim();
+    nameChip.textContent = v || defaultName;
+  });
+
+  // --- Fireworks animation (simple yet festive) ---
+  const fwCanvas = document.getElementById('fireworks');
+  const fwCtx = fwCanvas.getContext('2d');
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  let W, H;
+  function resize(){
+    W = fwCanvas.width = innerWidth * DPR;
+    H = fwCanvas.height = innerHeight * DPR;
+    fwCanvas.style.width = innerWidth + 'px';
+    fwCanvas.style.height = innerHeight + 'px';
+  }
+  addEventListener('resize', resize, {passive:true});
+  resize();
+
+  const fireworks = [];
+  function launchFirework(){
+    const x = Math.random() * W * .9 + W*.05;
+    const y = H * (0.2 + Math.random() * 0.4);
+    const hue = 110 + Math.random()*40; // greenish range
+    const particles = [];
+    const count = 60 + (Math.random()*40|0);
+    for(let i=0;i<count;i++){
+      const angle = (i / count) * Math.PI * 2;
+      const speed = 1 + Math.random()*3;
+      particles.push({
+        x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 60 + (Math.random()*20|0),
+        age: 0,
+        hue
+      });
+    }
+    fireworks.push(particles);
+  }
+
+  let lastLaunch = 0;
+  function fwLoop(t){
+    if(!lastLaunch || t - lastLaunch > 600){
+      launchFirework();
+      if(Math.random()<0.6) setTimeout(launchFirework, 150+Math.random()*200);
+      lastLaunch = t;
+    }
+    fwCtx.clearRect(0,0,W,H);
+    fireworks.forEach((particles, idx)=>{
+      for(let p of particles){
+        p.age++;
+        p.vy += 0.02; // gravity
+        p.x += p.vx;
+        p.y += p.vy;
+        const alpha = Math.max(0, 1 - p.age/p.life);
+        if(alpha<=0) continue;
+        fwCtx.beginPath();
+        fwCtx.arc(p.x, p.y, 2*DPR, 0, Math.PI*2);
+        fwCtx.fillStyle = `hsla(${p.hue}, 85%, 60%, ${alpha})`;
+        fwCtx.fill();
+      }
+      // cull old
+      fireworks[idx] = particles.filter(p=>p.age<p.life);
+    });
+    // remove empty arrays
+    for(let i=fireworks.length-1;i>=0;i--){ if(fireworks[i].length===0) fireworks.splice(i,1); }
+    requestAnimationFrame(fwLoop);
+  }
+  requestAnimationFrame(fwLoop);
+
+  // --- Sparkles cursor trail ---
+  const spCanvas = document.getElementById('sparkles');
+  const spCtx = spCanvas.getContext('2d');
+  function spResize(){
+    spCanvas.width = innerWidth * DPR;
+    spCanvas.height = innerHeight * DPR;
+    spCanvas.style.width = innerWidth + 'px';
+    spCanvas.style.height = innerHeight + 'px';
+  }
+  addEventListener('resize', spResize, {passive:true});
+  spResize();
+
+  const sparkles = [];
+  addEventListener('pointermove', (e)=>{
+    for(let i=0;i<6;i++){
+      sparkles.push({
+        x:(e.clientX + (Math.random()-0.5)*12) * DPR,
+        y:(e.clientY + (Math.random()-0.5)*12) * DPR,
+        vx:(Math.random()-0.5)*0.8*DPR,
+        vy:(Math.random()-0.8)*0.8*DPR,
+        life: 28 + (Math.random()*10|0),
+        age:0
+      });
+    }
+  }, {passive:true});
+
+  function spLoop(){
+    spCtx.clearRect(0,0,spCanvas.width, spCanvas.height);
+    for(let i=sparkles.length-1;i>=0;i--){
+      const s = sparkles[i];
+      s.age++; s.x += s.vx; s.y += s.vy; s.vy += 0.03;
+      const a = Math.max(0, 1 - s.age/s.life);
+      spCtx.fillStyle = `rgba(255,255,255,${a})`;
+      spCtx.fillRect(s.x, s.y, 2*DPR, 2*DPR);
+      if(a<=0) sparkles.splice(i,1);
+    }
+    requestAnimationFrame(spLoop);
+  }
+  spLoop();
+</script>
+</body>
+</html>
